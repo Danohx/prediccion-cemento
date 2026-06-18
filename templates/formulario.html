@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción de Resistencia del Concreto</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #263238;
+            margin-bottom: 25px;
+        }
+
+        .campo {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            color: #37474f;
+            margin-bottom: 6px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b0bec5;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #1976d2;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0d47a1;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 5px solid #43a047;
+            border-radius: 6px;
+            color: #1b5e20;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .mpa {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #455a64;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <h1>Predicción de Resistencia del Concreto</h1>
+
+        <form action="/predict" method="POST">
+
+            <div class="campo">
+                <label>Cemento utilizado en la mezcla (kg/m³)</label>
+                <input type="number" step="any" name="cement" required>
+            </div>
+
+            <div class="campo">
+                <label>Escoria de alto horno, material que puede reemplazar parte del cemento (kg/m³)</label>
+                <input type="number" step="any" name="slag" required>
+            </div>
+
+            <div class="campo">
+                <label>Ceniza volante, aditivo mineral fino usado en el concreto (kg/m³)</label>
+                <input type="number" step="any" name="fly_ash" required>
+            </div>
+
+            <div class="campo">
+                <label>Agua agregada a la mezcla (kg/m³)</label>
+                <input type="number" step="any" name="water" required>
+            </div>
+
+            <div class="campo">
+                <label>Superplastificante, aditivo para mejorar la fluidez del concreto (kg/m³)</label>
+                <input type="number" step="any" name="superplasticizer" required>
+            </div>
+
+            <div class="campo">
+                <label>Grava o agregado grueso utilizado en la mezcla (kg/m³)</label>
+                <input type="number" step="any" name="coarse_aggregate" required>
+            </div>
+
+            <div class="campo">
+                <label>Arena o agregado fino utilizado en la mezcla (kg/m³)</label>
+                <input type="number" step="any" name="fine_aggregate" required>
+            </div>
+
+            <div class="campo">
+                <label>Edad del concreto desde que fue preparado (días)</label>
+                <input type="number" step="any" name="age" required>
+            </div>
+
+            <input type="submit" value="Predecir resistencia">
+
+        </form>
+
+        {% if resultado %}
+            <div class="resultado">
+                {{ resultado }}
+            </div>
+
+            <p class="mpa">
+                MPa significa megapascal. Indica la resistencia del concreto a la compresión.
+            </p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
